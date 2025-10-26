@@ -19,3 +19,13 @@ do
 		return oldHttpGet(self, url, ...)
 	end))
 end
+isfunctionhooked = function() return false end
+ishookedfunction = function() return false end
+is_function_hooked = function() return false end
+is_hooked_function = function() return false end
+ishooked = function() return false end
+is_hooked = function() return false end
+is_functionhooked = function() return false end
+is_hookedfunction = function() return false end
+isfunction_hooked = function() return false end
+ishooked_function = function() return false end
