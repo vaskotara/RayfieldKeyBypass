@@ -25,7 +25,7 @@ table.foreach(debug, function(i, v)
 end)
 local oldDebug = dupeDebug.getinfo
 if not oldDebug then
-	oldDebug = function(f)
+	oldDebug = newcclosure(function(f)
 		assert(type(f) == 'number' or type(f) == 'function', 'invalid argument #1 to \'getinfo\', number or function expected, got ' .. tostring(typeof(f)))
 		local ParamCount, IsVararg = debug.info(f, 'a')
 		local n = debug.info(f, 'n') ~= '' and debug.info(f, 'n') or ''
@@ -41,16 +41,16 @@ if not oldDebug then
 			func = f,
 			nups = 0
 		}
-	end
+	end)
 end
 local oldSf = setfenv
-setfenv = function(f, gs)
+setfenv = newcclosure(function(f, gs)
 	if f == loadstring then
 		error("'setfenv' cannot change environment of given object")
 	else
 		return oldSf(f, gs)
 	end
-end
+end)
 local function newDebug(f)
 	if f == loadstring or f == setfenv then
 		return {what = "C"}
